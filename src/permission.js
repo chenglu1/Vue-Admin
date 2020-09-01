@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-28 10:45:32
- * @LastEditTime: 2020-08-13 10:39:00
+ * @LastEditTime: 2020-08-27 14:00:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-project\src\permission.js
@@ -42,7 +42,12 @@ router.beforeEach((to, from, next) => {
               store.dispatch('GenerateRoutes', {}).then(() => {
                         // 根据roles权限生成可访问的路由表
                         router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
-                        next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
+
+                        if (to.redirectedFrom) {
+                          router.replace(to.redirectedFrom)
+                        } else {
+                          next({ ...to, replace: true })
+                        } // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
                     })
         } else {
             next()

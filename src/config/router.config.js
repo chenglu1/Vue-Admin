@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-28 10:45:32
- * @LastEditTime: 2020-07-31 16:03:39
+ * @LastEditTime: 2020-08-26 15:45:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-project\src\config\router.config.js
@@ -270,7 +270,6 @@ export const asyncRouterMap = [
           }
         ]
       }
-
       // other
       /*
       {

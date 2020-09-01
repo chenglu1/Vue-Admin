@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-08-20 13:11:56
+ * @LastEditTime: 2020-08-28 16:27:09
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \Vue-Admin\src\layouts\BasicLayout.vue
+-->
 <template>
   <pro-layout
     :title="title"
@@ -77,7 +85,7 @@ export default {
   computed: {
     ...mapState({
       // 动态主路由
-      mainMenu: state => state.permission.addRouters
+      mainMenu: state => state.permission.routers
     })
   },
   created () {

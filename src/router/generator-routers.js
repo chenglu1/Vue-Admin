@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-28 10:45:32
- * @LastEditTime: 2020-08-11 15:23:17
+ * @LastEditTime: 2020-09-01 14:37:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-project\src\router\generator-routers.js
@@ -59,9 +59,14 @@ const constantRouterComponents = {
   'SecuritySettings': () => import('@/views/account/settings/Security'),
   'CustomSettings': () => import('@/views/account/settings/Custom'),
   'BindingSettings': () => import('@/views/account/settings/Binding'),
-  'NotificationSettings': () => import('@/views/account/settings/Notification')
+  'NotificationSettings': () => import('@/views/account/settings/Notification'),
 
   // 'TestWork': () => import(/* webpackChunkName: "TestWork" */ '@/views/dashboard/TestWork')
+  // dict-manage
+  'DictManage': () => import(/* webpackChunkName: "error" */ '@/views/dictManage/DictManage'),
+  'TaskPlanSetting': () => import(/* webpackChunkName: "error" */ '@/views/dictManage/DictManage'),
+  'TaskConfigSetting': () => import(/* webpackChunkName: "error" */ '@/views/dictManage/DictManage'),
+  'ReportTableInfoManage': () => import(/* webpackChunkName: "error" */ '@/views/dictManage/DictManage')
 }
 
 // 前端未找到页面路由（固定不用改）
@@ -127,9 +132,9 @@ export const generator = (routerMap, parent) => {
       // 该路由对应页面的 组件 :方案1
       // component: constantRouterComponents[item.component || item.key],
       // 该路由对应页面的 组件 :方案2 (动态加载)
-      component: (constantRouterComponents[item.component || item.menuid]) || (() => import(`@/views/${item.component}`)),
-
-      // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)
+      // eslint-disable-next-line standard/computed-property-even-spacing
+      component: item.component ? BasicLayout : constantRouterComponents[(item.page && toUpperCase(item.page.split('#')[1])) || 'RouteView'],
+      // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)‘
       meta: {
         title: title,
         icon: icon || undefined,
@@ -138,6 +143,10 @@ export const generator = (routerMap, parent) => {
         permission: item.name
       }
     }
+    // if (!item.page && item.name !== 'index') {
+    //   currentRouter.redirect = item.children[0].page.split('#')[1]
+    //   currentRouter.component = constantRouterComponents[item.children[0].page && toUpperCase(item.children[0].page.split('#')[1])]
+    // }
     // 是否设置了隐藏菜单
     if (show === false) {
       currentRouter.hidden = true
@@ -186,4 +195,15 @@ const listToTree = (list, tree, parentId) => {
       tree.push(child)
     }
   })
+}
+
+const toUpperCase = page => {
+  if (page) {
+    var str = ''
+    const array = page.split('-')
+    array.forEach(item => {
+      str += item.substring(0, 1).toUpperCase() + item.substring(1)
+    })
+    return str
+  }
 }
