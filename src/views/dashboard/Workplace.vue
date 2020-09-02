@@ -33,7 +33,7 @@
       <s-table
         ref="table"
         size="default"
-        rowKey="scheduleId"
+        rowKey="dictId"
         :columns="columns"
         :data="loadData"
         showPagination="auto"
@@ -168,7 +168,7 @@ export default {
   },
   filters: {
   statusTypeFilter (type) {
-    return statusMap[type].color
+    return statusMap[type] ? statusMap[type].color : ''
   }
 },
   computed: {

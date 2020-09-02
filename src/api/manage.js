@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-28 10:45:32
- * @LastEditTime: 2020-08-13 18:13:29
+ * @LastEditTime: 2020-09-02 17:44:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-project\src\api\manage.js
@@ -12,12 +12,14 @@ import { post, get } from '@/utils/util'
 const api = {
   user: '/user',
   role: '/role',
-  service: '/service',
+  service: 'kingdom.retl.get_sys_dict_view_list',
+  addDict: 'kingdom.retl.set_sys_dict_view_info',
   permission: '/permission',
   getMenu: 'kingdom.retl.get_dis_employee_menu',
   permissionNoPager: '/permission/no-pager',
   orgTree: '/org/tree',
-  getList: 'kingdom.retl.get_schedule_info'
+  getList: 'kingdom.retl.get_schedule_info',
+  getDictInfolist: 'kingdom.retl.get_sys_dict_value_info'
 }
 
 export default api
@@ -39,13 +41,17 @@ export function getRoleList (parameter) {
 }
 
 export function getServiceList (parameter) {
-  return request({
-    url: api.service,
-    method: 'get',
-    params: parameter
-  })
+  return get(
+    api.service,
+    parameter
+    )
 }
-
+export function addServiceList (parameter) {
+  return get(
+    api.addDict,
+    parameter
+    )
+}
 export function getPermissions (parameter) {
   return request({
     url: api.permissionNoPager,
@@ -89,6 +95,12 @@ export function getMenu (parameter) {
 export function getList (parameter) {
   return get(
     api.getList,
+    parameter
+    )
+}
+export function getDictInfolist (parameter) {
+  return get(
+    api.getDictInfolist,
     parameter
     )
 }
